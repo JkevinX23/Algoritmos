@@ -23,6 +23,7 @@ void printList(List* list);
 void pop(List* list);
 bool isEmpty(List* list);
 Node* atPos(List* list, int index);
+int indexOf(List* list, Node* node);
 
 List* createList(){
 
@@ -91,6 +92,21 @@ Node* atPos(List* list, int index){
     return node;
 }
 
+int indexOf(List* list, Node* node){
+    
+    int i=0;
+    Node* aux = list->head;
+    while(aux!=NULL){
+        if(aux == node){
+            return i;
+        }
+        aux = aux->next;
+        i++;
+    }
+    printf("Node not index of list");
+    return -1;
+}
+
 int main(){
     List* lista = createList();
     
@@ -99,10 +115,9 @@ int main(){
     push(lista, data);
     data.id  = 10;
     push(lista, data);
-    data.id  = 2;
-    push(lista, data);
     printList(lista);
 
+    printf("%d", indexOf(lista, lista->head->next));
     
     return 0;
 }
