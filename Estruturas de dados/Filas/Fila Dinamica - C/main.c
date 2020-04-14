@@ -17,10 +17,12 @@ typedef struct fila {
 }Fila;
 
 Fila* createQueue();
-void enqueue(Fila* fila, DataNode data);
-bool isEmpty(Fila* fila);
-int size(Fila* fila);
 DataNode dequeue(Fila* fila);
+void enqueue(Fila* fila, DataNode data);
+void empty(Fila* fila);
+int size(Fila* fila);
+bool isEmpty(Fila* fila);
+
 
 Fila* createQueue(){
   Fila* fila = (Fila*)malloc(sizeof(Fila));
@@ -95,6 +97,16 @@ DataNode dequeue(Fila* fila){
 
 }
 
+void empty(Fila* fila){
+  while (size(fila)!=0)
+  {
+    dequeue(fila);
+  }
+  free(fila->end);
+  free(fila->start);
+  free(fila);
+}
+
 int main(){
   Fila* fila = createQueue();
   DataNode data;
@@ -102,14 +114,9 @@ int main(){
   enqueue(fila, data);
   data.id = 15;
   enqueue(fila, data);
- 
-
   printQueue(fila);
   printf("Size:: %d\n", size(fila));
-  printf("dequeue:: %d\n", dequeue(fila).id);
-  printQueue(fila);
-  printf("dequeue:: %d\n", dequeue(fila).id);
-
+  empty(fila);
   return 0;
 }
 
