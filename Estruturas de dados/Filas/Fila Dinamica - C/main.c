@@ -20,6 +20,7 @@ Fila* createQueue();
 void enqueue(Fila* fila, DataNode data);
 bool isEmpty(Fila* fila);
 int size(Fila* fila);
+DataNode dequeue(Fila* fila);
 
 Fila* createQueue(){
   Fila* fila = (Fila*)malloc(sizeof(Fila));
@@ -50,7 +51,7 @@ bool isEmpty(Fila* fila){
 void printQueue(Fila* fila){
 
   if(isEmpty(fila)) {
-     printf("Empty queue");
+     printf("Empty queue\n");
      return;
   }
 
@@ -78,6 +79,22 @@ int size(Fila* fila){
   return size;
 }
 
+DataNode dequeue(Fila* fila){
+  DataNode data;
+  data.id = -1;
+  if(size(fila) == 0){
+    printf("Empty queue\n");
+    return data;
+  }
+
+  Node* pointer = fila->start;
+  fila->start = pointer->next;
+  data = pointer->data;
+  free(pointer);
+  return data;
+
+}
+
 int main(){
   Fila* fila = createQueue();
   DataNode data;
@@ -88,7 +105,10 @@ int main(){
  
 
   printQueue(fila);
-  printf("Size:: %d", size(fila));
+  printf("Size:: %d\n", size(fila));
+  printf("dequeue:: %d\n", dequeue(fila).id);
+  printQueue(fila);
+  printf("dequeue:: %d\n", dequeue(fila).id);
 
   return 0;
 }
