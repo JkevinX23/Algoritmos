@@ -1,0 +1,8 @@
+Date Node -> É a estrutura dos dados que a lista  carregará.
+
+Node -> Define a estrutura de um node. Aqui, nas listas encadeadas,
+o node irá conter o seu conteudo (dateNode) e um ponteiro "next",
+que irá apontar para o próximo node.
+
+List -> Listas encadeadas são definidas aqui como listas que contém um apontador
+para o Head (node cabeça). E um Size, que indica o tamanho da lista.
