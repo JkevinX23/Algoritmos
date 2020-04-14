@@ -27,6 +27,9 @@ int indexOf(List* list, Node* node);
 void erase(List* list, int index);
 void insert(List* list, int index, DataNode data);
 void exchangeNodes(List* list, Node* nodeA, Node* nodeB);
+Node* minNode(List* list, int index);
+Node* maxNode(List* list, int index);
+void incSort(List* list);
 
 List* createList(){
 
@@ -194,6 +197,53 @@ void exchangeNodes(List* list, Node* nodeA, Node* nodeB){
     printList(list);
 }
 
+Node* minNode(List* list, int index){
+    if(index < 0 || index >= list->size){
+        printf("Invalid index");
+        return NULL;
+    }
+    
+    Node* min = atPos(list, index);
+    Node* pointer = min;
+
+    while(pointer != NULL){
+        if( pointer->data.id < min->data.id ){
+            min = pointer;
+        }
+        pointer = pointer->next;
+    }
+    return min;
+}
+
+Node* maxNode(List* list, int index){
+
+    if(index < 0 || index >= list->size){
+        printf("Invalid index");
+        return NULL;
+    }
+    
+    Node* max = atPos(list, index);
+    Node* pointer = max;
+
+    while(pointer != NULL){
+        if( pointer->data.id > max->data.id ){
+            max = pointer;
+        }
+        pointer = pointer->next;
+    }
+    return max;
+
+}
+
+void incSort(List* list){
+
+    int i;
+
+    for(i=0;i<list->size-1;i++){
+        exchangeNodes(list, atPos(list,i), minNode(list,i));
+    }
+}
+
 int main(){
     List* lista = createList();
     DataNode data;
@@ -206,8 +256,11 @@ int main(){
     data.id  = 17;
     push(lista, data);
     printList(lista);
-    data.id = 33;
+    data.id = 1;
     insert(lista, 4 ,data);
+
+    incSort(lista);
+
 
     return 0;
 }
